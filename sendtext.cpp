@@ -36,17 +36,17 @@ main(void)
 
 	printf("%s at index %d\n", ifname, ifr.ifr_ifindex);
 
-	if(bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		perror("Error in socket bind");
-		return -2;
-	}
+//	if(bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+//		perror("Error in socket bind");
+//		return -2;
+//	}
 
 	frame.can_id  = 0x123;
 	frame.can_dlc = 2;
 	frame.data[0] = 0x11;
 	frame.data[1] = 0x22;
 
-	nbytes = write(s,buff ,11 );
+	nbytes = sendto(s,&frame ,sizeof(struct can_frame) ,0,(struct sockaddr *)&addr, sizeof(addr) );
 
 	printf("Wrote %d bytes\n", nbytes);
 	
