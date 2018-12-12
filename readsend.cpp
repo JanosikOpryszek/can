@@ -16,7 +16,7 @@ main(void)
 {
 	int s;
 	int nbytes;
-	char buff[20];
+	char  buff[20];
 	struct sockaddr_can addr;
 	struct can_frame frame;
 	struct ifreq ifr;
@@ -40,22 +40,26 @@ main(void)
 		perror("Error in socket bind");
 		return -2;
 	}
-
-	frame.can_id  = 0x123;
+while(1)
+{
+	frame.can_id  = 0x0ff;
 	frame.can_dlc = 2;
-	frame.data[0] = 0x11;
-	frame.data[1] = 0x22;
+	frame.data[0] = 0xff;
+	frame.data[1] = 0xff;
+	int i=0;
 
-	//nbytes = write(s, &frame, sizeof(struct can_frame));
 
-	//printf("Wrote %d bytes\n", nbytes);
 
-	while(1)
-	{
-	read(s, &frame, sizeof(struct can_frame));
-	printf("can0 - %s\n",frame.data);
+	nbytes = write(s, &frame, sizeof(struct can_frame));
+	printf("Wrote %d bytes\n", nbytes);
+	sleep(1);
+	recv(s, buff, 20,0);
+	for(i=0;i<20;i++)
+		printf("%d",buff[i]);
 
-	}
+	printf("\n");
+	sleep(1);
+}
 	
 	return 0;
 }

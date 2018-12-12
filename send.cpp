@@ -40,10 +40,10 @@ main(void)
 		return -2;
 	}
 
-	frame.can_id  = 0x123;
+	frame.can_id  = 0x0ff;
 	frame.can_dlc = 2;
-	frame.data[0] = 0x11;
-	frame.data[1] = 0x22;
+	frame.data[0] = 0xff;
+	frame.data[1] = 0xff;
 
 	nbytes = write(s, &frame, sizeof(struct can_frame));
 
