@@ -41,8 +41,8 @@ main(void)
 //		return -2;
 //	}
 
-	frame.can_id  = 0x325;
-	frame.can_dlc = 8;
+	frame.can_id  = 256;
+	frame.can_dlc = 10;
 	frame.data[0] = 0xff;
 	frame.data[1] = 0xff;
 	frame.data[2] = 0xff;
@@ -51,6 +51,9 @@ main(void)
 	frame.data[5] = 0xff;
 	frame.data[6] = 0xff;
 	frame.data[7] = 0xa0;
+	
+	frame.data[8] = 0xff;
+	frame.data[9] = 0xa0;
 
 	nbytes = sendto(s,&frame ,sizeof(struct can_frame) ,0,(struct sockaddr *)&addr, sizeof(addr) );
 
